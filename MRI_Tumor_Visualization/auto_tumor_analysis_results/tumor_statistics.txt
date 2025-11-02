@@ -1,0 +1,7 @@
+TUMOR STATISTICS
+================
+
+Tumor volume: 55.22 cm³ (55221 voxels)
+Dimensions (mm): 97.00 × 138.00 × 132.00
+Dimensions (voxels): 97 × 138 × 132
+Center of mass (mm): (46.30, 162.98, 133.73)
