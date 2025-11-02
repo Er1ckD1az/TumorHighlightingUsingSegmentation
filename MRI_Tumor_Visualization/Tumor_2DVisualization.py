@@ -228,7 +228,7 @@ def save_results(mri_data, tumor_mask, output_dir, stats):
     axes[1].imshow(mri_data[:, :, best_slice], cmap='gray')
     
     masked_data = np.zeros((*mri_data[:, :, best_slice].shape, 4))
-    masked_data[:, :, 0] = 1.0 =
+    masked_data[:, :, 0] = 1.0
     masked_data[:, :, 3] = tumor_mask[:, :, best_slice] * 0.7  
     
     axes[1].imshow(masked_data)
@@ -376,4 +376,5 @@ def main():
         print(f"Error: MRI file not found at {mri_file_path}")
 
 main()
+
 
