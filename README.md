@@ -111,7 +111,7 @@ The segmentation algorithm employs several key techniques:
 
 ## :chart_with_downwards_trend: Exploring Output
 Now that we've discussed all the techincal jargin of the project. It's time to see how it actaully preformed. And As you can see from the image below. Not so great.
-![Image showing a comparison of tumor detection at different threshold values](Tumor%20Comparison%20analysis.png)
+![Image showing a comparison of tumor detection at different threshold values](./MRI_Tumor_Visualization/Tumor_Comparison_analysis.png)
 
 ## 📚 Lessons Learned
 
