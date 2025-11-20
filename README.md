@@ -1,6 +1,6 @@
 # 🧠 MRI Tumor Segmentation & Visualization
 
-An automated medical imaging analysis tool that uses computer vision techniques to detect, segment, and visualize brain tumors from MRI scans. The system processes NIfTI format brain MRI data and generates tumor analysis reports with multi-view visualizations.
+An automated medical imaging analysis tool that uses computer vision techniques to detect, segment, and visualize brain tumors from MRI scans. The system processes NIfTI format brain MRI data and generates tumor analysis reports with multi-view visualizations. This project was developed as part of my exploration into medical imaging and neuroscience, as instead of using simple computer vision techniques, I planned to use a custom built segmentation model. You can find the culmination of said work in my other project: (see [Metis DICOM viewer?](https://github.com/Er1ckD1az/Metis_DICOM_Viewer))
 
 ## 🔬 How Does It Work?
 
@@ -18,7 +18,7 @@ The system can be broken down into **five main components**:
   - Calculates voxel dimensions for accurate volume measurements
 
 ### 2️⃣ Tumor Segmentation
-The project offers two segmentation approaches:
+The project has two segmentation approaches:
 
 #### Automatic Segmentation
 - **Technique:** Otsu's thresholding with adaptive adjustment
@@ -85,37 +85,33 @@ The system generates comprehensive visualizations across three anatomical planes
 - **Tumor Mask:** NumPy array for further analysis
 - **Organized Output:** Separate directories for automatic vs. manual segmentation results
 
-## 📊 Technical Implementation Details
-
-### Image Processing Pipeline
-The segmentation algorithm employs several key techniques:
-- **Normalization:** Scales intensity values for consistent thresholding
-- **Adaptive Thresholding:** Uses Otsu's method with adjustable sensitivity
-- **Morphological Operations:** 
-  - `remove_small_objects`: Eliminates noise artifacts
-  - `binary_closing`: Fills holes within tumor regions
-- **Connected Component Analysis:** Isolates the primary tumor mass
-- **Fast Fourier Transform:** (Referenced in context but not directly used in this version)
-
-### Data Formats
-- **Input:** NIfTI (.nii) files - standard medical imaging format
-- **Output:** PNG images (300 DPI), text reports, NumPy arrays
-- **Coordinate Systems:** Maintains proper spatial orientation using affine matrices
-
-### Key Libraries
-- **nibabel:** Medical imaging file I/O
-- **scikit-image:** Image processing and morphological operations
-- **NumPy:** Numerical computations and array operations
-- **Matplotlib:** Visualization and figure generation
-- **SciPy:** Image resampling and interpolation
-
 ## :chart_with_downwards_trend: Exploring Output
 Now that we've discussed all the techincal jargin of the project. It's time to see how it actaully preformed. And As you can see from the image below. Not so great.
+
+
 ![Image showing a comparison of tumor detection at different threshold values](./MRI_Tumor_Visualization/Tumor_Comparison_analysis.png)
+
+| Threshold Factor | Tumor Volume (cm^3) | Voxel Count | Relative error |
+| :-------------: | :-------------: | :-------------: | :-------------: |
+| Ground Truth | 84.54 | 84,540 | ------ |
+| 2.0 | 950.97 | 950,966 | +1025% overestimation |
+| 2.5 | 55.22 | 55,221 | -34.7% underestimation |
+| 3.0 | 10.13 | 10,135 | -88.0% understimation |
+
+### Analysis
+
+Why did it preform so poorly? The fundamental method imaging technique we used is called Otsu's method. However, this comes with its own drawbacks. Tumor tissue and healthy brain tissue often have overlapping intensity distributions in MRI scans. Otsu's algorithm assumes dimodal intensity distributions (2 distinct peaks), but brain MRI data is inherently complex. Some other issues include:
+- **No Spatial context:** Thresholding operates on pixel by pixel basis without considering spatial relationships.
+- **Single Global Threshold Limitation** Using one threshold value for the entire 3D volume is overly simplistic.
+- **Sensitivity to Threshold Factor:** The results table demonstrates extreme sensitivity to the threshold multiplier. 
+
+So, how could we improve the output? As stated earlier, the best approach would be the usuage of Deep Learning models. Models such as U-Net and PSP-Net would drastically improve the accuracy of the highlighting. 
+
+Overall, while the output did not produce very accuracte results. I achieved what I set out to do with the project. Which was to serve as an introduction to neuroimaging, so that I could take the lessons learned and continue my work in my capstone project. 
 
 ## 📚 Lessons Learned
 
-This project marked a significant turning point in my academic journey and sparked a genuine passion for medical imaging and neuroscience. Working with real MRI data and developing algorithms to detect potentially life-threatening conditions gave the work a profound sense of purpose.
+This project sparked my interest for medical imaging and nuroscience. So much, that I hope to start a carerr in the medical field and went on to heavily influence my future projects.
 
 **Technical Growth:**
 - **Medical Imaging Fundamentals:** Understanding NIfTI formats, spatial transformations, and anatomical coordinate systems
@@ -126,14 +122,3 @@ This project marked a significant turning point in my academic journey and spark
 - **Brain Anatomy:** Learning to interpret axial, coronal, and sagittal views and understanding spatial relationships in neuroimaging
 - **Clinical Applications:** Recognizing how volume measurements and tumor localization inform treatment decisions
 
-**Personal Impact:**
-This project, combined with my concurrent EEG brain-computer interface work (see [Whatcha Thinkin?](https://github.com/Er1ckD1az/Whatcha-Thinkin)), solidified my fascination with the human brain. The brain truly is the most remarkable organ - not just for its complexity, but for how technology can help us understand and treat its pathologies. While the EEG project showed me the brain's electrical activity and sparked my interest, this MRI segmentation project revealed the intersection of computer science and clinical medicine, demonstrating how algorithms can assist in potentially life-saving diagnoses.
-
-The experience taught me that the most rewarding projects are those that combine technical challenges with real-world impact. There's something uniquely motivating about writing code that could one day contribute to medical research or patient care.
-
-**Future Directions:**
-Moving forward, I'm excited to explore more advanced techniques like deep learning-based segmentation (U-Net, 3D CNNs) and multimodal imaging fusion. The field of medical imaging AI is rapidly evolving, and this project provided a solid foundation for understanding both the possibilities and the responsibilities that come with developing healthcare technology.
-
----
-
-*Note: This project was developed as part of my exploration into medical imaging and neuroscience. It demonstrates proof-of-concept tumor segmentation techniques and should not be used for clinical diagnosis without proper validation and regulatory approval.*
